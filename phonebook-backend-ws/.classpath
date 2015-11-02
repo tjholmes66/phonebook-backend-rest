@@ -6,8 +6,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry excluding="**" kind="src" output="target/phonebook-backend-ws-0.0.1-SNAPSHOT/WEB-INF/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="src/main/webapp"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
