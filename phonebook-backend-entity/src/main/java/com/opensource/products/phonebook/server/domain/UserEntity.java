@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 // CREATE TABLE `users` (
-// `user_id` int(11) NOT NULL AUTO_INCREMENT,
+// `user_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `active` tinyint(1) NOT NULL DEFAULT '1',
 // `position_id` int(11) NOT NULL DEFAULT '2',
 // `username` varchar(10) NOT NULL,
@@ -33,7 +33,7 @@ import javax.persistence.TemporalType;
 // KEY `fk_users_1` (`position_id`),
 // CONSTRAINT `fk_users_1` FOREIGN KEY (`position_id`) REFERENCES `position` (`position_id`) ON DELETE NO ACTION ON
 // UPDATE NO ACTION
-// ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8$$
+// ) ENGINE=InnoDB IDENTITY_INCREMENT=2 DEFAULT CHARSET=utf8$$
 
 /**
  * The persistent class for the Positions database table.
@@ -46,7 +46,7 @@ public class UserEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long userId;
 

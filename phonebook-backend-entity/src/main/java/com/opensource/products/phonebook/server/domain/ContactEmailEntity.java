@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class ContactEmailEntity implements Serializable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contacts_email_id")
     private long emailId;
 

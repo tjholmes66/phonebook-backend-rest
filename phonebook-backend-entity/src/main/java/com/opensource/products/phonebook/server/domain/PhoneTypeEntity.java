@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 // CREATE TABLE `phone_type` (
-// `phone_type_id` int(11) NOT NULL AUTO_INCREMENT,
+// `phone_type_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `phone_type_description` varchar(45) NOT NULL,
 // `phone_type_active` tinyint(1) NOT NULL DEFAULT '1',
 // PRIMARY KEY (`phone_type_id`),
 // UNIQUE KEY `phone_type_description_UNIQUE` (`phone_type_description`)
-// ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8$$
+// ) ENGINE=InnoDB IDENTITY_INCREMENT=4 DEFAULT CHARSET=utf8$$
 
 /**
  * The persistent class for the Positions database table.
@@ -28,7 +28,7 @@ public class PhoneTypeEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "phone_type_id")
     private long id;
 

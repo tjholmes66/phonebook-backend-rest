@@ -24,7 +24,7 @@ public class ContactPhoneEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contacts_phone_id")
     private long phoneId;
 

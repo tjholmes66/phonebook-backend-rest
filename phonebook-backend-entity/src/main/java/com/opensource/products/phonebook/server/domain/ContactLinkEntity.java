@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // CREATE TABLE `contacts_link` (
-// `contacts_link_id` int(11) NOT NULL AUTO_INCREMENT,
+// `contacts_link_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `contact_id` int(11) NOT NULL,
 // `link_type_id` int(11) NOT NULL,
 // `link_description` varchar(80) NOT NULL,
@@ -42,7 +42,7 @@ import javax.persistence.Table;
 public class ContactLinkEntity implements Serializable
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contacts_link_id")
     private long linkId;
 

@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 // CREATE TABLE `email_type` (
-// `email_type_id` int(11) NOT NULL AUTO_INCREMENT,
+// `email_type_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `email_type_description` varchar(45) NOT NULL,
 // `email_type_active` tinyint(1) NOT NULL DEFAULT '1',
 // PRIMARY KEY (`email_type_id`),
 // UNIQUE KEY `email_type_description_UNIQUE` (`email_type_description`)
-// ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8$$
+// ) ENGINE=InnoDB IDENTITY_INCREMENT=4 DEFAULT CHARSET=utf8$$
 
 /**
  * The persistent class for the Positions database table.
@@ -28,7 +28,7 @@ public class EmailTypeEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "email_type_id")
     private long id;
 

@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 // CREATE TABLE `link_type` (
-// `link_type_id` int(11) NOT NULL AUTO_INCREMENT,
+// `link_type_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `link_type_description` varchar(45) NOT NULL,
 // `link_type_active` tinyint(1) NOT NULL DEFAULT '1',
 // PRIMARY KEY (`link_type_id`),
 // UNIQUE KEY `link_type_description_UNIQUE` (`link_type_description`)
-// ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8$$
+// ) ENGINE=InnoDB IDENTITY_INCREMENT=4 DEFAULT CHARSET=utf8$$
 
 /**
  * The persistent class for the Positions database table.
@@ -28,7 +28,7 @@ public class LinkTypeEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "link_type_id")
     private long id;
 

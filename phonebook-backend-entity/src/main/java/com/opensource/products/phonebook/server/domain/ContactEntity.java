@@ -2,7 +2,7 @@ package com.opensource.products.phonebook.server.domain;
 
 //
 // CREATE TABLE `contacts` (
-// `contact_id` int(11) NOT NULL AUTO_INCREMENT,
+// `contact_id` int(11) NOT NULL IDENTITY_INCREMENT,
 // `prefix` varchar(45) DEFAULT NULL,
 // `first_name` varchar(45) NOT NULL,
 // `middle_name` varchar(45) DEFAULT NULL,
@@ -49,7 +49,7 @@ public class ContactEntity implements Serializable
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contact_id")
     private long contactId;
 
