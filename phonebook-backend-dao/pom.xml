@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
+			<version>${validation.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -40,54 +40,5 @@
 		</dependency>
 
 	</dependencies>
-
-	<build>
-
-		<plugins>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<check>
-						<branchRate>100</branchRate>
-						<lineRate>100</lineRate>
-						<haltOnFailure>true</haltOnFailure>
-						<totalBranchRate>100</totalBranchRate>
-						<totalLineRate>100</totalLineRate>
-						<packageLineRate>100</packageLineRate>
-						<packageBranchRate>100</packageBranchRate>
-					</check>
-				</configuration>
-				<executions>
-					<execution>
-						<id>clean-corbertura</id>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>check-corbertura</id>
-						<phase>process-resources</phase>
-					</execution>
-					<execution>
-						<id>run-corbertura</id>
-						<phase>prepare-package</phase>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</reporting>
 
 </project>

@@ -9,71 +9,62 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
-	
-	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-	
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
 	<context:annotation-config />
 	<context:component-scan base-package="com.opensource.products.phonebook.server" />
-	
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
-			<value>com.mysql.jdbc.Driver</value>
+			<value>${hibernate.connection.driver.class}</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://localhost:3306/phonebook</value>
+			<value>${hibernate.connection.url}</value>
 		</property>
 		<property name="username">
-			<value>operator</value>
+			<value>${hibernate.connection.username}</value>
 		</property>
 		<property name="password">
-			<value>passw0rd</value>
+			<value>${hibernate.connection.password}</value>
 		</property>
 	</bean>
 
-	<!-- JNDI DataSource for JEE environments -->
-	<!-- <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/MyDatabase"/> -->
-
-
 	<!-- Hibernate SessionFactory -->
-	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		
-	    <property name="packagesToScan" value="com.opensource.products.phonebook.server.domain" />
-	    
+
+		<property name="packagesToScan"
+			value="com.opensource.products.phonebook.server.domain" />
+
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">${hibernate.cglib.use_reflection_optimizer}</prop>
+				<prop key="useUnicode">true</prop>
+				<prop key="useLegacyDatetimeCode">false</prop>
+				<prop key="serverTimezone">UTC</prop>
 			</props>
 		</property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
-	
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="mail.tomholmes.net" />
-		<property name="port" value="587" />
-		
-		<property name="username" value="tom@tomholmes.net" />
-		<property name="password" value="J0seph1966" />
- 
-		<property name="javaMailProperties">
-	   		<props>
-       	      	<prop key="mail.smtp.auth">true</prop>
-       	      	<prop key="mail.smtp.starttls.enable">true</prop>
-       	   	</props>
-		</property>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
- 
-	<bean id = "transactionManager" class = "org.springframework.orm.hibernate5.HibernateTransactionManager">
-         <property name = "sessionFactory" ref = "sessionFactory" />
- 	</bean>
- 	
+
 	<!-- enable the configuration of transactional behavior based on annotations -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<beans profile="default">
+		<context:property-placeholder
+			location="file:/opt/phonebook/phonebook-ws.properties" />
+	</beans>
+
 </beans>

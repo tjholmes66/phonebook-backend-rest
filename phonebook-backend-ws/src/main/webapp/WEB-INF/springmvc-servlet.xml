@@ -34,20 +34,4 @@
 	    <property name="supportedMediaTypes" value="application/json"/>
 	</bean>
 	
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	  <property name="messageConverters">
-	      <list>
-	      	<ref bean="jsonHttpMessageConverter" />
-	      </list>
-	  </property>
-	</bean>
-	
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<property name="messageConverters">
-			<list>
-			<ref bean="jsonHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
-	
 </beans>
