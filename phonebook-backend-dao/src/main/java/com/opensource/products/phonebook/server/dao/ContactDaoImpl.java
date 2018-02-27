@@ -22,11 +22,6 @@ public class ContactDaoImpl implements ContactDao
 
     private static final Log logger = LogFactory.getLog(ContactDaoImpl.class);
 
-    public void setSessionFactory(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public ContactEntity createContactEntity(ContactEntity contactEntity)
     {

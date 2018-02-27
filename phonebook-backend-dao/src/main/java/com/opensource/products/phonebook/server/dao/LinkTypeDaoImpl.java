@@ -19,11 +19,6 @@ public class LinkTypeDaoImpl implements LinkTypeDao
 
     private static final Log logger = LogFactory.getLog(LinkTypeDaoImpl.class);
 
-    public void setSessionFactory(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public LinkTypeEntity saveLinkTypeEntity(LinkTypeEntity linkType)
     {

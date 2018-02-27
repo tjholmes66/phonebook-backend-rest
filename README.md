@@ -49,7 +49,7 @@ These are also Transactional to make sure the database is in the same state as w
 *) At this time, there is no Security on the Services layer.
 
 5) The fifth (5th) and final layer are the RESTful web-services themselves. 
-As stated in the beginning, this is a Spring Model-View-Controller web-app.
+As stated in the beginning, this is a Spring Model-View-Controller web-phonebook.
 The Controllers are designated by having the @Controller annotation.
 
 In the standard RESTful way, retrieving data with, none, 1 or more parameters is done with an HTTP GET.

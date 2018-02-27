@@ -19,11 +19,6 @@ public class PhoneTypeDaoImpl implements PhoneTypeDao
 
     private static final Log logger = LogFactory.getLog(PhoneTypeDaoImpl.class);
 
-    public void setSessionFactory(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public PhoneTypeEntity savePhoneTypeEntity(PhoneTypeEntity phoneType)
     {

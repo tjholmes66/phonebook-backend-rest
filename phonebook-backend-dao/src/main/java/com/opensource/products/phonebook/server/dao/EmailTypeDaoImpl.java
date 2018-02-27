@@ -20,11 +20,6 @@ public class EmailTypeDaoImpl implements EmailTypeDao
 
     private static final Log logger = LogFactory.getLog(EmailTypeDaoImpl.class);
 
-    public void setSessionFactory(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public EmailTypeEntity saveEmailTypeEntity(EmailTypeEntity emailType)
     {
