@@ -4,8 +4,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 import java.text.SimpleDateFormat;
 
-import junit.framework.TestCase;
-
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.opensource.products.phonebook.server.config.PhoneBookAppConfig;
+
+import junit.framework.TestCase;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations =
-{ "classpath:/spring/phonebook-ws-context.xml", "file:src/main/webapp/WEB-INF/springmvc-servlet.xml" })
+@ContextConfiguration(classes =
+{ PhoneBookAppConfig.class })
 @Transactional
 public class BaseControllerTests extends TestCase
 {
-	public final static String BASE_URL = "http://localhost:8080/";
+    public final static String BASE_URL = "http://localhost:8080/";
 
     public final static String DATE_FORMAT = "yyyy-MM-dd";
 
     private final SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-    
+
     @Autowired
     private WebApplicationContext ctx;
 
@@ -39,7 +41,7 @@ public class BaseControllerTests extends TestCase
     {
         this.mockMvc = webAppContextSetup(ctx).build();
     }
-    
+
     public void tearDown() throws Exception
     {
         super.tearDown();
