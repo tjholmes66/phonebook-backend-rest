@@ -6,25 +6,28 @@ import com.opensource.products.phonebook.server.domain.UserEntity;
 
 public interface UserDao
 {
+    // CREATE
     public UserEntity createUserEntity(UserEntity userEntity);
 
-    public UserEntity updateUserEntity(UserEntity userEntity);
-
-    public void deleteUserEntity(long userId);
-
-    public void deleteUserEntity(UserEntity user);
+    // RETRIEVE
+    public UserEntity getUserEntity(long id);
 
     public List<UserEntity> getAllUserEntitys();
 
-    // Retrieve
-    public UserEntity getUserEntity(long id);
-
     public List<UserEntity> getUsersEntity(UserEntity exampleEntity);
 
-    public List<UserEntity> getUserEntityByLogin(String username, String password);
+    public UserEntity getUserEntityByLogin(String username, String password);
 
-    List<UserEntity> getUserEntityByEmail(String email);
+    UserEntity getUserEntityByEmail(String email);
 
-    List<UserEntity> getUserEntityByUsername(String username);
+    UserEntity getUserEntityByUsername(String username);
+
+    // UPDATE
+    public UserEntity updateUserEntity(UserEntity userEntity);
+
+    // DELETE
+    public void deleteUserEntity(long userId);
+
+    public void deleteUserEntity(UserEntity user);
 
 }

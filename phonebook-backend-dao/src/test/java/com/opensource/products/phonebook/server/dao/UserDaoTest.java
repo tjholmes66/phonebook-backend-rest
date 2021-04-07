@@ -124,7 +124,7 @@ public class UserDaoTest extends BaseDaoTests
 // assertEquals(user.getSuffix(),suffix);
 // assertEquals(user.getUsername(),username);
 // assertEquals(user.getZip(),zip);
-            // ************************************************************
+// ************************************************************
             System.out.println("testUserRetrieveAll: user=" + user.toString());
         }
         System.out.println("testUserRetrieveAll: FINISH: CREATE");
@@ -170,16 +170,14 @@ public class UserDaoTest extends BaseDaoTests
         exampleEntity.setEmail(email);
 
         System.out.println("testUserRetrieveByEmail: START: CREATE");
-        List<UserEntity> users = userDao.getUserEntityByEmail(email);
-        assertNotNull(users);
-        assertEquals(1, users.size());
-        UserEntity user = users.get(0);
-        assertNotNull(user.getUserId());
+        UserEntity userEntity = userDao.getUserEntityByEmail(email);
+        assertNotNull(userEntity);
+        assertNotNull(userEntity.getUserId());
 
         // ************************************************************
-        assertEquals(user.getEmail(), email);
+        assertEquals(userEntity.getEmail(), email);
         // ************************************************************
-        System.out.println("testUserRetrieveByEmail: user=" + user.toString());
+        System.out.println("testUserRetrieveByEmail: userEntity=" + userEntity.toString());
         System.out.println("testUserRetrieveByEmail: FINISH: CREATE");
         // =================================================================================
     }
@@ -197,10 +195,7 @@ public class UserDaoTest extends BaseDaoTests
         exampleEntity.setUsername(username);
 
         System.out.println("testUserRetrieveByUsername: START: CREATE");
-        List<UserEntity> users = userDao.getUserEntityByUsername(username);
-        assertNotNull(users);
-        assertEquals(1, users.size());
-        UserEntity user = users.get(0);
+        UserEntity user = userDao.getUserEntityByUsername(username);
         assertNotNull(user.getUserId());
 
         // ************************************************************
@@ -251,10 +246,7 @@ public class UserDaoTest extends BaseDaoTests
         // =================================================================================
         // ***************************************************************
         System.out.println("testUserRetrieveByUsernamePassword: START: CREATE");
-        List<UserEntity> users = userDao.getUserEntityByLogin(username, password);
-        assertNotNull(users);
-        assertEquals(1, users.size());
-        UserEntity user = users.get(0);
+        UserEntity user = userDao.getUserEntityByLogin(username, password);
         assertNotNull(user.getUserId());
         // ************************************************************
         assertEquals(user.getFirstname(), "Demo");

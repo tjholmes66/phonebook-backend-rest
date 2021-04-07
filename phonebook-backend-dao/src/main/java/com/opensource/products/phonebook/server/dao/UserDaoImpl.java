@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -74,34 +75,31 @@ public class UserDaoImpl implements UserDao
     }
 
     @Override
-    public List<UserEntity> getUserEntityByLogin(String username, String password)
+    public UserEntity getUserEntityByLogin(String username, String password)
     {
-        List<UserEntity> users =
-            this.sessionFactory.getCurrentSession()
-            .createQuery("from UserEntity users where users.username=? and users.password=?").setParameter(0, username)
-            .setParameter(1, password).list();
-
-        return users;
+        Query query = this.sessionFactory.getCurrentSession().createQuery("from UserEntity u where (u.username = :username) and (u.password = :password)");
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        UserEntity userEntity = (UserEntity) query.uniqueResult();
+        return userEntity;
     }
 
     @Override
-    public List<UserEntity> getUserEntityByEmail(String email)
+    public UserEntity getUserEntityByUsername(String username)
     {
-        List<UserEntity> users =
-            this.sessionFactory.getCurrentSession().createQuery("from UserEntity users where users.email=?")
-            .setParameter(0, email).list();
-
-        return users;
+        Query query = this.sessionFactory.getCurrentSession().createQuery("from UserEntity u where (u.username = :username)");
+        query.setParameter("username", username);
+        UserEntity userEntity = (UserEntity) query.uniqueResult();
+        return userEntity;
     }
 
     @Override
-    public List<UserEntity> getUserEntityByUsername(String username)
+    public UserEntity getUserEntityByEmail(String email)
     {
-        List<UserEntity> users =
-            this.sessionFactory.getCurrentSession().createQuery("from UserEntity users where users.username=?")
-            .setParameter(0, username).list();
-
-        return users;
+        Query query = this.sessionFactory.getCurrentSession().createQuery("from UserEntity u where (u.email = :email)");
+        query.setParameter("email", email);
+        UserEntity userEntity = (UserEntity) query.uniqueResult();
+        return userEntity;
     }
 
 }
