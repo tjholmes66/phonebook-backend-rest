@@ -1,33 +1,29 @@
 package com.opensource.products.phonebook.server.controller;
 
 import java.text.SimpleDateFormat;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.opensource.products.phonebook.server.domain.UserEntity;
 import com.opensource.products.phonebook.server.service.LoginService;
 import com.opensource.products.phonebook.server.util.SendEmailService;
 
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController
 {
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-dd-MM");
 
-    @Autowired
     private LoginService loginService;
-
-    @Autowired
     private SendEmailService emailService;
 
+    public LoginController(LoginService loginService, SendEmailService emailService)
+    {
+        this.loginService = loginService;
+        this.emailService = emailService;
+    }
+
     @RequestMapping(value = "/user/{username}/pwd/{password}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    UserEntity login(@PathVariable("username") String username, @PathVariable("password") String password)
+    public UserEntity login(@PathVariable("username") String username, @PathVariable("password") String password)
     {
         System.out.println("LoginController: login: START: username=" + username + " password=" + password);
         UserEntity userEntity = null;
@@ -44,8 +40,7 @@ public class LoginController
     }
 
     @RequestMapping(value = "/email/{email:.*}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public @ResponseBody
-    UserEntity login(@PathVariable("email") String email)
+    public UserEntity login(@PathVariable("email") String email)
     {
         System.out.println("LoginController: login: START: email=" + email);
 

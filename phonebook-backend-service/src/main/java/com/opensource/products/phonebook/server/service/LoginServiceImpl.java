@@ -2,7 +2,7 @@ package com.opensource.products.phonebook.server.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.opensource.products.phonebook.server.dto.LoginDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +18,21 @@ public class LoginServiceImpl implements LoginService
     public LoginServiceImpl(UserDao userDao)
     {
         this.userDao = userDao;
+    }
+
+    @Override
+    @Transactional
+    public UserEntity login(LoginDTO loginDto)
+    {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+        List<UserEntity> userEntitys = userDao.getUserEntityByLogin(username, password);
+        UserEntity userEntity = null;
+        if (userEntitys != null && userEntitys.size() > 0)
+        {
+            userEntity = userEntitys.get(0);
+        }
+        return userEntity;
     }
 
     @Override

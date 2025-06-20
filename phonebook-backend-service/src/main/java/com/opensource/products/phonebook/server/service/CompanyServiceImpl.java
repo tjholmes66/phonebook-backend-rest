@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("companyService")
 public class CompanyServiceImpl implements CompanyService
 {
     private CompanyDao companyDao;
