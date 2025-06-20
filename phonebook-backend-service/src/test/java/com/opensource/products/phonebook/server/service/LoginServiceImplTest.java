@@ -2,10 +2,12 @@ package com.opensource.products.phonebook.server.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.UserEntity;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LoginServiceImplTest extends BaseServiceImplTests
 {
@@ -13,19 +15,6 @@ public class LoginServiceImplTest extends BaseServiceImplTests
 
     @Autowired
     private LoginService service;
-
-    @org.junit.Before
-    public void setUp() throws Exception
-    {
-        System.out.println("setUp: service: " + service);
-    }
-
-    @org.junit.After
-    public void tearDown()
-    {
-        service = null;
-        System.out.println("tearDown: context set null.");
-    }
 
     @Test
     public void testFetchByLogin() throws Exception

@@ -1,36 +1,22 @@
 package com.opensource.products.phonebook.server.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.PositionEntity;
 import com.opensource.products.phonebook.server.domain.UserEntity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class UserServiceImplTest extends BaseServiceImplTests
 {
-    private static final Log logger = LogFactory.getLog(UserServiceImplTest.class);
-
     @Autowired
     private UserService service;
 
-    @org.junit.Before
-    public void setUp() throws Exception
-    {
-        System.out.println("setUp: service: " + service);
-    }
-
-    @org.junit.After
-    public void tearDown()
-    {
-        service = null;
-        System.out.println("tearDown: context set null.");
-    }
-
-    private final static int id = 0;
+    private final static Long id = 0L;
     private final static String email = "tom@tomholmes.new";
-    private final static int positionId = 2;
+    private final static Long positionId = 2L;
     private final static String firstname = "tom_new";
     private final static String lastname = "holmes_new";
     private final static String username = "user1new";
@@ -43,7 +29,7 @@ public class UserServiceImplTest extends BaseServiceImplTests
     private UserEntity createUserEntity()
     {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(id);
+        //userEntity.setUserId(id);
         userEntity.setActive(true);
         userEntity.setEmail(email);
         PositionEntity position = new PositionEntity();
@@ -95,7 +81,7 @@ public class UserServiceImplTest extends BaseServiceImplTests
         long userId = 6;
         // ==================================================
         String email = "tom@tomholmes.upd";
-        int positionId = 2;
+        Long positionId = 2L;
         String firstname = "tom_upd";
         String lastname = "holmes_upd";
         String username = "user1upd";

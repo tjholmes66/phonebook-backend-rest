@@ -11,8 +11,8 @@
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
 
 	<import resource="classpath:/spring/phonebook-dao-context.xml" />
-	
-		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="${mail.host}" />
 		<property name="port" value="${mail.port}" />
 

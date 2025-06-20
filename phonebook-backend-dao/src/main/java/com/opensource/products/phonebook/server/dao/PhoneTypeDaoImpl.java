@@ -2,11 +2,11 @@ package com.opensource.products.phonebook.server.dao;
 
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.opensource.products.phonebook.server.domain.PhoneTypeEntity;
@@ -14,52 +14,54 @@ import com.opensource.products.phonebook.server.domain.PhoneTypeEntity;
 @Repository("phoneTypeDao")
 public class PhoneTypeDaoImpl implements PhoneTypeDao
 {
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private static final Log logger = LogFactory.getLog(PhoneTypeDaoImpl.class);
 
     @Override
-    public PhoneTypeEntity savePhoneTypeEntity(PhoneTypeEntity phoneType)
+    public PhoneTypeEntity savePhoneTypeEntity(PhoneTypeEntity phoneTypeEntity)
     {
-        return phoneType;
+        entityManager.persist(phoneTypeEntity);
+        entityManager.flush();
+        entityManager.refresh(phoneTypeEntity);
+        return phoneTypeEntity;
     }
 
     @Override
     public void deletePhoneTypeEntity(Long phoneTypeId)
     {
-        // this.getgetHibernateTemplate()().delete(interest);
+        PhoneTypeEntity phoneTypeEntity = entityManager.find(PhoneTypeEntity.class, phoneTypeId);
+        entityManager.remove(phoneTypeEntity);
     }
 
     @Override
-    public void deletePhoneTypeEntity(PhoneTypeEntity phoneType)
+    public void deletePhoneTypeEntity(PhoneTypeEntity phoneTypeEntity)
     {
-        // this.getHibernateTemplate().delete(phoneType);
+        entityManager.remove(phoneTypeEntity);
     }
 
     @Override
     public List<PhoneTypeEntity> getAllPhoneTypeEntitys()
     {
         String queryString = "from PhoneTypeEntity";
-        // List<PhoneTypeEntity> users = this.getHibernateTemplate().find(queryString);
-        List<PhoneTypeEntity> users = this.sessionFactory.getCurrentSession().createQuery(queryString).list();
-        return users;
+        List<PhoneTypeEntity> phoneTypeEntityList = entityManager.createQuery(queryString).getResultList();
+        return phoneTypeEntityList;
     }
 
     @Override
     public PhoneTypeEntity getPhoneTypeEntity(long id)
     {
-        // return (PhoneTypeEntity)this.getHibernateTemplate().get(PhoneTypeEntity.class, id);
-        return (PhoneTypeEntity) this.sessionFactory.getCurrentSession().get(PhoneTypeEntity.class, id);
+        return (PhoneTypeEntity) entityManager.find(PhoneTypeEntity.class, id);
     }
 
     @Override
     public List<PhoneTypeEntity> getPhoneTypeEntity(PhoneTypeEntity exampleEntity)
     {
         // List<PhoneTypeEntity> users = this.getHibernateTemplate().findByExample(exampleEntity);
-        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(PhoneTypeEntity.class);
-        List<PhoneTypeEntity> users = criteria.list();
-        return users;
+        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery(PhoneTypeEntity.class);
+        List<PhoneTypeEntity> phoneTypeEntityList = criteriaQuery.getOrderList();
+        return phoneTypeEntityList;
     }
 
 }

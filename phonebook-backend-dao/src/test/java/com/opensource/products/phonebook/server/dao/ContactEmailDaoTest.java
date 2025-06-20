@@ -1,21 +1,23 @@
 package com.opensource.products.phonebook.server.dao;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.ContactEmailEntity;
 import com.opensource.products.phonebook.server.domain.ContactEntity;
 import com.opensource.products.phonebook.server.domain.EmailTypeEntity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class ContactEmailDaoTest extends BaseDaoTests
 {
-    final Logger logger = LoggerFactory.getLogger(ContactEmailDaoTest.class);
 
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -53,14 +55,6 @@ public class ContactEmailDaoTest extends BaseDaoTests
         System.out.println("setup: Done loading application context");
     }
 
-    protected void tearDown() throws Exception
-    {
-        super.tearDown();
-        System.out.println("tearDown: START");
-        System.out.println("tearDown: FINISH");
-        contact = null;
-    }
-
     @Test
     public void testContactEmailFetchByContact() throws Exception
     {
@@ -90,7 +84,7 @@ public class ContactEmailDaoTest extends BaseDaoTests
         // contactEmail.setId(id);
         contactEmail.setContact(contact);
         contactEmail.setEmail(emailNew);
-        contactEmail.setEnteredDate(new Date());
+        contactEmail.setEnteredDate(LocalDateTime.now());
         contactEmail.setEmailType(emailType);
         System.out.println("testCreate: " + contactEmail.toString());
         // ***************************************************************

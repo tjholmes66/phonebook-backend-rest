@@ -1,15 +1,14 @@
 package com.opensource.products.phonebook.server.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.service.BaseServiceImplTests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class SendEmailTests extends BaseServiceImplTests
 {
-    private final static Log logger = LogFactory.getLog(SendEmailTests.class);
 
     @Autowired
     private SendEmailService service;

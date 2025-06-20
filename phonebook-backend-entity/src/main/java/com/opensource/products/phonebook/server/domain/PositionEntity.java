@@ -2,12 +2,17 @@ package com.opensource.products.phonebook.server.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 // CREATE TABLE `position` (
 // `position_id` int(11) NOT NULL IDENTITY_INCREMENT,
@@ -25,13 +30,15 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "position")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PositionEntity implements Serializable
 {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "position_id")
-    private long Id;
+    private Long Id;
 
     @Column(name = "active")
     private boolean active;
@@ -41,95 +48,5 @@ public class PositionEntity implements Serializable
 
     @Column(name = "description")
     private String description;
-
-    public long getId()
-    {
-        return Id;
-    }
-
-    public void setId(long id)
-    {
-        Id = id;
-    }
-
-    public boolean isActive()
-    {
-        return active;
-    }
-
-    public void setActive(boolean active)
-    {
-        this.active = active;
-    }
-
-    public String getCode()
-    {
-        return code;
-    }
-
-    public void setCode(String code)
-    {
-        this.code = code;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (Id ^ (Id >>> 32));
-        result = prime * result + (active ? 1231 : 1237);
-        result = prime * result + ((code == null) ? 0 : code.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PositionEntity other = (PositionEntity) obj;
-        if (Id != other.Id)
-            return false;
-        if (active != other.active)
-            return false;
-        if (code == null)
-        {
-            if (other.code != null)
-                return false;
-        }
-        else if (!code.equals(other.code))
-            return false;
-        if (description == null)
-        {
-            if (other.description != null)
-                return false;
-        }
-        else if (!description.equals(other.description))
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "PositionEntity [Id=" + Id + ", active=" + active + ", code=" + code + ", description=" + description
-            + "]";
-    }
 
 }

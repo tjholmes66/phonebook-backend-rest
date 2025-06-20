@@ -14,8 +14,12 @@ import com.opensource.products.phonebook.server.domain.ContactEntity;
 @Service("contactEmailService")
 public class ContactEmailServiceImpl implements ContactEmailService
 {
-    @Autowired
     private ContactEmailDao contactEmailDao;
+
+    public ContactEmailServiceImpl (ContactEmailDao contactEmailDao)
+    {
+        this.contactEmailDao = contactEmailDao;
+    }
 
     @Override
     public List<ContactEmailEntity> getAllEmailsByContactId(long contactId)

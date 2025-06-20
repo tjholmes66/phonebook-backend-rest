@@ -13,8 +13,12 @@ import com.opensource.products.phonebook.server.domain.UserEntity;
 @Service("loginService")
 public class LoginServiceImpl implements LoginService
 {
-    @Autowired
     private UserDao userDao;
+
+    public LoginServiceImpl(UserDao userDao)
+    {
+        this.userDao = userDao;
+    }
 
     @Override
     @Transactional

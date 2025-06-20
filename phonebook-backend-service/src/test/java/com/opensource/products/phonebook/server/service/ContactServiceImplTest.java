@@ -1,15 +1,17 @@
 package com.opensource.products.phonebook.server.service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.ContactEntity;
 import com.opensource.products.phonebook.server.domain.UserEntity;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ContactServiceImplTest extends BaseServiceImplTests
 {
@@ -18,20 +20,7 @@ public class ContactServiceImplTest extends BaseServiceImplTests
     @Autowired
     private ContactService service;
 
-    @org.junit.Before
-    public void setUp() throws Exception
-    {
-        System.out.println("setUp: service: " + service);
-    }
-
-    @org.junit.After
-    public void tearDown()
-    {
-        service = null;
-        System.out.println("tearDown: context set null.");
-    }
-
-    private final static int id = 0;
+    private final static Long id = 0L;
     private final static String prefix = "Mr.";
     private final static String firstname = "Thomas";
     private final static String middlename = "Joseph";
@@ -45,16 +34,16 @@ public class ContactServiceImplTest extends BaseServiceImplTests
     private final static String zip = "02072";
 
     private final static long enteredBy = 1;
-    private final static Date enteredDate = new Date();
+    private final static LocalDateTime enteredDate = LocalDateTime.now();
     private final static long editedBy = 1;
-    private final static Date editedDate = new Date();
+    private final static LocalDateTime editedDate = LocalDateTime.now();
 
-    private final static Date birthDate = new Date();
+    private final static LocalDateTime birthDate = LocalDateTime.now();
     private final static boolean admin = false;
 
     private ContactEntity createContactEntity()
     {
-        long userId = 2;
+        Long userId = 2L;
         UserEntity user = new UserEntity();
         user.setUserId(userId);
 
@@ -127,7 +116,7 @@ public class ContactServiceImplTest extends BaseServiceImplTests
     public void testFetchByUserExample() throws Exception
     {
         UserEntity dummy = new UserEntity();
-        dummy.setUserId(2);
+        dummy.setUserId(2L);
         // ==================================================
         List<ContactEntity> contacts = null; // service.fetch(dummy);
         ContactEntity contact = null;

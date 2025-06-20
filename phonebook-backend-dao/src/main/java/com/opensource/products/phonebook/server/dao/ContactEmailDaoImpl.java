@@ -2,10 +2,13 @@ package com.opensource.products.phonebook.server.dao;
 
 import java.util.List;
 
+import com.opensource.products.phonebook.server.domain.ContactLinkEntity;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,8 +20,8 @@ import com.opensource.products.phonebook.server.domain.ContactEntity;
 public class ContactEmailDaoImpl implements ContactEmailDao
 {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private static final Log logger = LogFactory.getLog(ContactDaoImpl.class);
 
@@ -26,7 +29,7 @@ public class ContactEmailDaoImpl implements ContactEmailDao
     public ContactEmailEntity createContactEmailEntity(ContactEmailEntity contactEmail)
     {
         // this.getHibernateTemplate().saveOrUpdate(contactEmail);
-        this.sessionFactory.getCurrentSession().persist(contactEmail);
+        entityManager.persist(contactEmail);
         return contactEmail;
     }
 
@@ -34,7 +37,7 @@ public class ContactEmailDaoImpl implements ContactEmailDao
     public ContactEmailEntity saveContactEmailEntity(ContactEmailEntity contactEmail)
     {
         // this.getHibernateTemplate().saveOrUpdate(contact);
-        this.sessionFactory.getCurrentSession().saveOrUpdate(contactEmail);
+        entityManager.persist(contactEmail);
         return contactEmail;
     }
 
@@ -42,20 +45,21 @@ public class ContactEmailDaoImpl implements ContactEmailDao
     public ContactEmailEntity updateContactEmailEntity(ContactEmailEntity contactEmail)
     {
         // this.getHibernateTemplate().saveOrUpdate(contact);
-        this.sessionFactory.getCurrentSession().merge(contactEmail);
+        entityManager.merge(contactEmail);
         return contactEmail;
     }
 
     @Override
     public void deleteContactEmailEntity(Long contactEmailId)
     {
-        // this.getgetHibernateTemplate()().delete(interest);
+        ContactEmailEntity contactEmailEntity = entityManager.find(ContactEmailEntity.class, contactEmailId);
+        entityManager.remove(contactEmailEntity);
     }
 
     @Override
     public void deleteContactEmailEntity(ContactEmailEntity contactEmail)
     {
-        this.sessionFactory.getCurrentSession().delete(contactEmail);
+        entityManager.remove(contactEmail);
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ContactEmailDaoImpl implements ContactEmailDao
     {
         String queryString = "from ContactEmailEntity";
         // List<ContactEmailEntity> users = this.getHibernateTemplate().find(queryString);
-        List<ContactEmailEntity> users = this.sessionFactory.getCurrentSession().createQuery(queryString).list();
+        List<ContactEmailEntity> users = entityManager.createQuery(queryString).getResultList();
         return users;
     }
 
@@ -71,38 +75,37 @@ public class ContactEmailDaoImpl implements ContactEmailDao
     public ContactEmailEntity getContactEmailEntity(long id)
     {
         // return (ContactEmailEntity)this.getHibernateTemplate().get(ContactEmailEntity.class, id);
-        return (ContactEmailEntity) this.sessionFactory.getCurrentSession().get(ContactEmailEntity.class, id);
+        return (ContactEmailEntity) entityManager.find(ContactEmailEntity.class, id);
     }
 
     @Override
     public List<ContactEmailEntity> getContactEmailEntity(ContactEmailEntity exampleEntity)
     {
-        // List<ContactEmailEntity> users = this.getHibernateTemplate().findByExample(exampleEntity);
-        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(ContactEmailEntity.class);
-        List<ContactEmailEntity> users = criteria.list();
-        return users;
+        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery(ContactEmailEntity.class);
+        List<ContactEmailEntity> contactEmailEntityList = entityManager.createQuery(criteriaQuery).getResultList();
+        return contactEmailEntityList;
     }
 
     @Override
     public List<ContactEmailEntity> getContactEmailEntityByContact(ContactEntity exampleContactEntity)
     {
         Query query =
-            this.sessionFactory.getCurrentSession().createQuery(
+            entityManager.createQuery(
                 "from ContactEmailEntity cpe where cpe.contact = :contact");
         query.setParameter("contact", exampleContactEntity);
-        List<ContactEmailEntity> contactEmails = query.list();
-        return contactEmails;
+        List<ContactEmailEntity> contactEmailEntityList = query.getResultList();
+        return contactEmailEntityList;
     }
 
     @Override
     public List<ContactEmailEntity> getContactEmailEntityByContactId(long contactId)
     {
         Query query =
-            this.sessionFactory.getCurrentSession().createQuery(
+            entityManager.createQuery(
                 "from ContactEmailEntity cpe where cpe.contact.id = :contact");
         query.setParameter("contact", contactId);
-        List<ContactEmailEntity> contactEmails = query.list();
-        return contactEmails;
+        List<ContactEmailEntity> contactEmailEntityList = query.getResultList();
+        return contactEmailEntityList;
     }
 
 }

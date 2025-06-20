@@ -14,8 +14,12 @@ import com.opensource.products.phonebook.server.domain.UserEntity;
 @Service("contactService")
 public class ContactServiceImpl implements ContactService
 {
-    @Autowired
     private ContactDao contactDao;
+
+    public ContactServiceImpl(ContactDao contactDao)
+    {
+        this.contactDao = contactDao;
+    }
 
     @Override
     public List<ContactEntity> getAllContacts()

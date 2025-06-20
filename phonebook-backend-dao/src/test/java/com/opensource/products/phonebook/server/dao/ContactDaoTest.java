@@ -1,13 +1,11 @@
 package com.opensource.products.phonebook.server.dao;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.time.LocalDateTime;
 
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.ContactEmailEntity;
@@ -17,23 +15,23 @@ import com.opensource.products.phonebook.server.domain.EmailTypeEntity;
 import com.opensource.products.phonebook.server.domain.PhoneTypeEntity;
 import com.opensource.products.phonebook.server.domain.UserEntity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class ContactDaoTest extends BaseDaoTests
 {
-
-    final Logger logger = LoggerFactory.getLogger(ContactDaoTest.class);
-
     private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
     @Autowired
     private ContactDao contactDao;
 
-    private long _id = 2;
+    private long _id = 2L;
     private boolean _active = true;
     private String _address1 = "123 main street";
     private String _address2 = "Apt. 456";
     private boolean _admin = false;
     private String _dob = "11/03/1966";
-    private Date _birthDate = null;
+    private LocalDateTime _birthDate = null;
     private String _city = "Randolph";
     private long _companyId = 0;
     private String _firstName = "first_name";
@@ -45,96 +43,83 @@ public class ContactDaoTest extends BaseDaoTests
     private String _state = "MA";
     private String _zip = "12345-1234";
 
-    protected void setUp() throws Exception
-    {
-        System.out.println("setup: Loading application context");
-        System.out.println("setup: Done loading application context");
-    }
-
-    protected void tearDown() throws Exception
-    {
-        super.tearDown();
-        System.out.println("tearDown: START");
-        System.out.println("tearDown: FINISH");
-    }
-
     private HashSet<ContactEmailEntity> createEmails(ContactEntity contact)
     {
         HashSet<ContactEmailEntity> emails = new HashSet<ContactEmailEntity>();
-        logger.debug("createEmails: START");
+       System.out.println("createEmails: START");
         ContactEmailEntity contactEmail = null;
         // ============================================================
         String email1 = "tom1@tomholmes1.net";
         EmailTypeEntity emailType1 = new EmailTypeEntity();
-        emailType1.setId(1);
+        emailType1.setId(1L);
         contactEmail = new ContactEmailEntity();
         contactEmail.setContact(contact);
         contactEmail.setEmail(email1);
-        contactEmail.setEnteredDate(new Date());
+        contactEmail.setEnteredDate(LocalDateTime.now());
         contactEmail.setEmailType(emailType1);
         emails.add(contactEmail);
         // **********************************************
         String email2 = "tom2@tomholmes2.net";
         EmailTypeEntity emailType2 = new EmailTypeEntity();
-        emailType2.setId(2);
+        emailType2.setId(2L);
         contactEmail = new ContactEmailEntity();
         contactEmail.setContact(contact);
         contactEmail.setEmail(email2);
-        contactEmail.setEnteredDate(new Date());
+        contactEmail.setEnteredDate(LocalDateTime.now());
         contactEmail.setEmailType(emailType2);
         emails.add(contactEmail);
         // **********************************************
         String email3 = "tom3@tomholmes3.net";
         EmailTypeEntity emailType3 = new EmailTypeEntity();
-        emailType3.setId(3);
+        emailType3.setId(3L);
         contactEmail = new ContactEmailEntity();
         contactEmail.setContact(contact);
         contactEmail.setEmail(email3);
-        contactEmail.setEnteredDate(new Date());
+        contactEmail.setEnteredDate(LocalDateTime.now());
         contactEmail.setEmailType(emailType3);
         emails.add(contactEmail);
         // ============================================================
-        logger.debug("createEmails: FINISH");
+       System.out.println("createEmails: FINISH");
         return emails;
     }
 
     private HashSet<ContactPhoneEntity> createPhones(ContactEntity contactEntity)
     {
         HashSet<ContactPhoneEntity> phones = new HashSet<ContactPhoneEntity>();
-        logger.debug("createPhones: START");
+       System.out.println("createPhones: START");
         ContactPhoneEntity contactPhone = null;
         // ============================================================
         PhoneTypeEntity phoneType1 = new PhoneTypeEntity();
-        phoneType1.setId(1);
+        phoneType1.setId(1L);
         contactPhone = new ContactPhoneEntity();
         contactPhone.setContact(contactEntity);
-        contactPhone.setEnteredDate(new Date());
+        contactPhone.setEnteredDate(LocalDateTime.now());
         contactPhone.setPhone("111-111-1111");
-        contactPhone.setPhoneId(0);
+        contactPhone.setPhoneId(0L);
         contactPhone.setPhoneType(phoneType1);
         phones.add(contactPhone);
         // ============================================================
         PhoneTypeEntity phoneType2 = new PhoneTypeEntity();
-        phoneType2.setId(2);
+        phoneType2.setId(2L);
         contactPhone = new ContactPhoneEntity();
         contactPhone.setContact(contactEntity);
-        contactPhone.setEnteredDate(new Date());
+        contactPhone.setEnteredDate(LocalDateTime.now());
         contactPhone.setPhone("222-222-2222");
-        contactPhone.setPhoneId(0);
+        contactPhone.setPhoneId(0L);
         contactPhone.setPhoneType(phoneType2);
         phones.add(contactPhone);
         // ============================================================
         PhoneTypeEntity phoneType3 = new PhoneTypeEntity();
-        phoneType3.setId(3);
+        phoneType3.setId(3L);
         contactPhone = new ContactPhoneEntity();
         contactPhone.setContact(contactEntity);
-        contactPhone.setEnteredDate(new Date());
+        contactPhone.setEnteredDate(LocalDateTime.now());
         contactPhone.setPhone("333-333-3333");
-        contactPhone.setPhoneId(0);
+        contactPhone.setPhoneId(0L);
         contactPhone.setPhoneType(phoneType3);
         phones.add(contactPhone);
         // ============================================================
-        logger.debug("createEmails: FINISH");
+       System.out.println("createEmails: FINISH");
         return phones;
     }
 
@@ -143,7 +128,7 @@ public class ContactDaoTest extends BaseDaoTests
     {
         System.out.println("testContactFetchByUser: START");
         UserEntity user = new UserEntity();
-        user.setUserId(1);
+        user.setUserId(1L);
 
         List<ContactEntity> contacts = contactDao.getContactEntityByUser(user);
         if (contacts != null)
@@ -161,7 +146,7 @@ public class ContactDaoTest extends BaseDaoTests
         System.out.println("testContactCreate: START");
         // =================================================================================
         ContactEntity contact = new ContactEntity();
-        contact.setContactId(0);
+        contact.setContactId(null);
         contact.setAddress1(_address1);
         contact.setAddress2(_address2);
         contact.setBirthDate(_birthDate);
@@ -174,7 +159,7 @@ public class ContactDaoTest extends BaseDaoTests
         contact.setSuffix(_suffix);
         contact.setZip(_zip);
         // ***************************************************************
-        long userId = 1;
+        Long userId = 1L;
         UserEntity userEntity = new UserEntity();
         userEntity.setUserId(userId);
         contact.setUser(userEntity);
@@ -231,11 +216,11 @@ public class ContactDaoTest extends BaseDaoTests
     {
         System.out.println("testContactRetrieveById: START");
         // =================================================================================
-        long contactId = 2;
+        Long contactId = 2L;
         String address1 = "123 main street";
         String address2 = "Apt. 456";
         String city = "Randolph";
-        long companyId = 0;
+        Long companyId = 0L;
         String prefix = "Mr.";
         String suffix = "Jr.";
         String state = "MA";
@@ -273,11 +258,11 @@ public class ContactDaoTest extends BaseDaoTests
     public void testContactDelete()
     {
         System.out.println("testContactDelete: START");
-        long contactId = 18;
+        Long contactId = 18L;
         // =================================================================================
-        // ContactEntity contactEntity = contactDao.getContactEntity(contactId);
-        // assertNotNull(contactEntity);
-        // System.out.println("testContactDelete: " + contactEntity.toString());
+        ContactEntity contactEntity = contactDao.getContactEntity(contactId);
+        assertNotNull(contactEntity);
+        System.out.println("testContactDelete: " + contactEntity.toString());
         // =================================================================================
         contactDao.deleteContactEntity(contactId);
         System.out.println("testContactDelete: contact deleted");
@@ -344,7 +329,7 @@ public class ContactDaoTest extends BaseDaoTests
     public void testContactUpdate()
     {
         System.out.println("testContactUpdate: START");
-        long contactId = 4;
+        Long contactId = 4L;
         // =================================================================================
         String updateCity = "upd_Randolph4";
         String updateFirstName = "updated_fn4";

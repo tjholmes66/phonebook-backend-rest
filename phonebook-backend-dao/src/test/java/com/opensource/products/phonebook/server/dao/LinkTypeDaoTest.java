@@ -2,18 +2,16 @@ package com.opensource.products.phonebook.server.dao;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.opensource.products.phonebook.server.domain.LinkTypeEntity;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensource.products.phonebook.server.domain.LinkTypeEntity;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class LinkTypeDaoTest extends BaseDaoTests
 {
-
-    final Logger logger = LoggerFactory.getLogger(LinkTypeDaoTest.class);
-
     @Autowired
     private LinkTypeDao linkTypeDao;
 
@@ -21,13 +19,6 @@ public class LinkTypeDaoTest extends BaseDaoTests
     {
         System.out.println("setup: Loading application context");
         System.out.println("setup: Done loading application context");
-    }
-
-    protected void tearDown() throws Exception
-    {
-        super.tearDown();
-        System.out.println("tearDown: START");
-        System.out.println("tearDown: FINISH");
     }
 
     @Test
@@ -40,7 +31,6 @@ public class LinkTypeDaoTest extends BaseDaoTests
         String linkTypeDescription = "Test Description";
         // =================================================================================
         LinkTypeEntity linkType = new LinkTypeEntity();
-        linkType.setId(0);
         linkType.setActive(linkActive);
         linkType.setDescription(linkTypeDescription);
         System.out.println("testLinkTypeSave: " + linkTypeName + " " + linkTypeDescription);
@@ -57,22 +47,36 @@ public class LinkTypeDaoTest extends BaseDaoTests
     {
         System.out.println("testLinkTypeUpdate: START");
         // =================================================================================
-        String linkTypeName = "Test Upd";
+        String linkTypeName = "Test NEW";
         boolean linkActive = true;
-        String linkTypeDescription = "Test Description Update";
+        String linkTypeDescription = "Test Description NEW";
         // =================================================================================
-        LinkTypeEntity linkType = new LinkTypeEntity();
-        linkType.setId(0);
-        linkType.setActive(linkActive);
-        linkType.setDescription(linkTypeDescription);
-        System.out.println("testLinkTypeUpdate: " + linkTypeName + " " + linkTypeDescription);
-        // ***************************************************************
+        LinkTypeEntity linkTypeEntity = new LinkTypeEntity();
+        linkTypeEntity.setId(null);
+        linkTypeEntity.setActive(linkActive);
+        linkTypeEntity.setDescription(linkTypeDescription);
         System.out.println("testLinkTypeUpdate: START: CREATE");
+        LinkTypeEntity linkType = linkTypeDao.saveLinkTypeEntity(linkTypeEntity);
+        assertNotNull(linkType);
+        System.out.println("testLinkTypeUpdate: FINISH: CREATE");
+        System.out.println("testLinkTypeUpdate: " + linkType.getId() + " " + linkType.getDescription());
+        // ***************************************************************
+        System.out.println("testLinkTypeUpdate: START: UPDATE");
+        String linkTypeNameUpdate = "Test Updated";
+        boolean linkActiveUpdate = false;
+        String linkTypeDescriptionUpdate = "Test Description Updated";
+
+        linkType.setActive(linkActiveUpdate);
+        linkType.setDescription(linkTypeDescriptionUpdate);
+
+        System.out.println("testLinkTypeUpdate: START: UPDATE");
         linkType = linkTypeDao.saveLinkTypeEntity(linkType);
         assertNotNull(linkType);
-        assertEquals(linkActive, linkType.isActive());
-        assertEquals(linkTypeDescription, linkType.getDescription());
-        System.out.println("testLinkTypeUpdate: FINISH: CREATE");
+        System.out.println("testLinkTypeUpdate: FINISH: UPDATE");
+
+        assertEquals(linkActiveUpdate, linkType.isActive());
+        assertEquals(linkTypeDescriptionUpdate, linkType.getDescription());
+        System.out.println("testLinkTypeUpdate: " + linkType.getId() + " " + linkType.getDescription());
         // =================================================================================
     }
 
@@ -117,18 +121,38 @@ public class LinkTypeDaoTest extends BaseDaoTests
     }
 
     @Test
-    public void testLinkTypeDelete()
+    public void testLinkTypeDeleteById()
+    {
+        System.out.println("testLinkTypeDeleteById: START");
+        // =================================================================================
+        LinkTypeEntity linkType = null;
+        LinkTypeEntity linkTypeGet = null;
+        // =================================================================================
+        // ***************************************************************
+        Long linkTypeId = 8L;
+        System.out.println("testLinkTypeDeleteById: START: delete");
+        linkTypeDao.deleteLinkTypeEntity(linkTypeId);
+        System.out.println("testLinkTypeDeleteById: FINISH: delete");
+        linkTypeGet = linkTypeDao.getLinkTypeEntity(linkTypeId);
+        assertNull(linkTypeGet);
+        // ***************************************************************
+        System.out.println("testLinkTypeDeleteById: FINISH");
+        // =================================================================================
+    }
+
+    @Test
+    public void testLinkTypeDeleteByEntity()
     {
         System.out.println("testLinkTypeDelete: START");
         // =================================================================================
-        LinkTypeEntity linkType;
-        LinkTypeEntity linkTypeGet;
+        LinkTypeEntity linkType = null;
+        LinkTypeEntity linkTypeGet = null;
         // =================================================================================
         // ***************************************************************
-        int id = 10;
-        linkType = linkTypeDao.getLinkTypeEntity(id);
+        Long linkTypeId = 8L;
+        linkType = linkTypeDao.getLinkTypeEntity(linkTypeId);
         linkTypeDao.deleteLinkTypeEntity(linkType);
-        linkTypeGet = linkTypeDao.getLinkTypeEntity(id);
+        linkTypeGet = linkTypeDao.getLinkTypeEntity(linkTypeId);
         assertEquals(null, linkTypeGet);
         // ***************************************************************
         System.out.println("testLinkTypeDelete: FINISH: CREATE");

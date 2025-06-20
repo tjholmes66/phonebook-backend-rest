@@ -2,11 +2,11 @@ package com.opensource.products.phonebook.server.dao;
 
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.opensource.products.phonebook.server.domain.LinkTypeEntity;
@@ -14,53 +14,54 @@ import com.opensource.products.phonebook.server.domain.LinkTypeEntity;
 @Repository("linkTypeDao")
 public class LinkTypeDaoImpl implements LinkTypeDao
 {
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private static final Log logger = LogFactory.getLog(LinkTypeDaoImpl.class);
 
     @Override
-    public LinkTypeEntity saveLinkTypeEntity(LinkTypeEntity linkType)
+    public LinkTypeEntity saveLinkTypeEntity(LinkTypeEntity linkTypeEntity)
     {
-        // this.getHibernateTemplate().saveOrUpdate(linkType);
-        return linkType;
+        entityManager.persist(linkTypeEntity);
+        entityManager.flush();
+        entityManager.refresh(linkTypeEntity);
+        return linkTypeEntity;
     }
 
     @Override
     public void deleteLinkTypeEntity(Long linkTypeId)
     {
-        // this.getgetHibernateTemplate()().delete(interest);
+        LinkTypeEntity linkTypeEntity = entityManager.find(LinkTypeEntity.class, linkTypeId);
+        entityManager.remove(linkTypeEntity);
     }
 
     @Override
-    public void deleteLinkTypeEntity(LinkTypeEntity linkType)
+    public void deleteLinkTypeEntity(LinkTypeEntity linkTypeEntity)
     {
-        // this.getHibernateTemplate().delete(linkType);
+        entityManager.remove(linkTypeEntity);
     }
 
     @Override
     public List<LinkTypeEntity> getAllLinkTypeEntitys()
     {
         String queryString = "from LinkTypeEntity";
-        // List<LinkTypeEntity> users = this.getHibernateTemplate().find(queryString);
-        List<LinkTypeEntity> users = this.sessionFactory.getCurrentSession().createQuery(queryString).list();
-        return users;
+        List<LinkTypeEntity> linkTypeEntityList = entityManager.createQuery(queryString).getResultList();
+        return linkTypeEntityList;
     }
 
     @Override
     public LinkTypeEntity getLinkTypeEntity(long id)
     {
-        // return (LinkTypeEntity)this.getHibernateTemplate().get(LinkTypeEntity.class, id);
-        return (LinkTypeEntity) this.sessionFactory.getCurrentSession().get(LinkTypeEntity.class, id);
+        return (LinkTypeEntity) entityManager.find(LinkTypeEntity.class, id);
     }
 
     @Override
     public List<LinkTypeEntity> getLinkTypeEntity(LinkTypeEntity exampleEntity)
     {
         // List<LinkTypeEntity> users = this.getHibernateTemplate().findByExample(exampleEntity);
-        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(LinkTypeEntity.class);
-        List<LinkTypeEntity> users = criteria.list();
-        return users;
+        CriteriaQuery criteriaQuery = entityManager.getCriteriaBuilder().createQuery(LinkTypeEntity.class);
+        List<LinkTypeEntity> linkTypeEntityList = criteriaQuery.getOrderList();
+        return linkTypeEntityList;
     }
 
 }

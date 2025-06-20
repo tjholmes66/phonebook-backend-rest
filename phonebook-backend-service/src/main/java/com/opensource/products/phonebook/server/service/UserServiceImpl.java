@@ -14,8 +14,12 @@ import com.opensource.products.phonebook.server.domain.UserEntity;
 @Service("userService")
 public class UserServiceImpl implements UserService
 {
-    @Autowired
     private UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao)
+    {
+        this.userDao = userDao;
+    }
 
     @Override
     @Transactional

@@ -1,17 +1,20 @@
 package com.opensource.products.phonebook.server.domain;
 
-import java.io.Serializable;
-import java.util.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 // CREATE TABLE `contacts_link` (
 // `contacts_link_id` int(11) NOT NULL IDENTITY_INCREMENT,
@@ -39,12 +42,15 @@ import javax.persistence.Table;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "contacts_link")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContactLinkEntity implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contacts_link_id")
-    private long linkId;
+    private Long linkId;
 
     // bi-directional many-to-one association to ContactEntity
     @ManyToOne(fetch = FetchType.EAGER)
@@ -63,73 +69,6 @@ public class ContactLinkEntity implements Serializable
     private String linkDescription;
 
     @Column(name = "entered_date")
-    private Date enteredDate;
-
-    public long getLinkId()
-    {
-        return linkId;
-    }
-
-    public void setLinkId(long linkId)
-    {
-        this.linkId = linkId;
-    }
-
-    public ContactEntity getContact()
-    {
-        return contact;
-    }
-
-    public void setContact(ContactEntity contact)
-    {
-        this.contact = contact;
-    }
-
-    public LinkTypeEntity getLinkType()
-    {
-        return linkType;
-    }
-
-    public void setLinkType(LinkTypeEntity linkType)
-    {
-        this.linkType = linkType;
-    }
-
-    public String getLink()
-    {
-        return link;
-    }
-
-    public void setLink(String link)
-    {
-        this.link = link;
-    }
-
-    public Date getEnteredDate()
-    {
-        return enteredDate;
-    }
-
-    public void setEnteredDate(Date enteredDate)
-    {
-        this.enteredDate = enteredDate;
-    }
-
-    public String getLinkDescription()
-    {
-        return linkDescription;
-    }
-
-    public void setLinkDescription(String linkDescription)
-    {
-        this.linkDescription = linkDescription;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "ContactLinkEntity [linkId=" + linkId + ", linkType=" + linkType + ", link=" + link
-            + ", linkDescription=" + linkDescription + ", enteredDate=" + enteredDate + "]";
-    }
+    private LocalDateTime enteredDate;
 
 }
