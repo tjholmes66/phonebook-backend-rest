@@ -1,6 +1,7 @@
 package com.opensource.products.phonebook.server.dao;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -31,7 +32,7 @@ public class ContactDaoTest extends BaseDaoTests
     private String _address2 = "Apt. 456";
     private boolean _admin = false;
     private String _dob = "11/03/1966";
-    private LocalDateTime _birthDate = null;
+    private LocalDate _birthDate = null;
     private String _city = "Randolph";
     private long _companyId = 0;
     private String _firstName = "first_name";
@@ -131,6 +132,22 @@ public class ContactDaoTest extends BaseDaoTests
         user.setUserId(1L);
 
         List<ContactEntity> contacts = contactDao.getContactEntityByUser(user);
+        if (contacts != null)
+        {
+            System.out.println("testContactFetchByUser: size=" + contacts.size());
+        }
+        assertNotNull(contacts);
+
+        System.out.println("testContactFetchByUser: FINISH");
+    }
+
+    @Test
+    public void testContactFetchByUserId() throws Exception
+    {
+        System.out.println("testContactFetchByUserId: START");
+        Long userId = 1L;
+
+        List<ContactEntity> contacts = contactDao.getContactEntityByUserId(userId);
         if (contacts != null)
         {
             System.out.println("testContactFetchByUser: size=" + contacts.size());
@@ -258,7 +275,7 @@ public class ContactDaoTest extends BaseDaoTests
     public void testContactDelete()
     {
         System.out.println("testContactDelete: START");
-        Long contactId = 18L;
+        Long contactId = 6L;
         // =================================================================================
         ContactEntity contactEntity = contactDao.getContactEntity(contactId);
         assertNotNull(contactEntity);

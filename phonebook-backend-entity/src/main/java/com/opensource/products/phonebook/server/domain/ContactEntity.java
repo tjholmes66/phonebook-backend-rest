@@ -37,6 +37,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -123,6 +124,6 @@ public class ContactEntity implements Serializable
 
 // `birthdate` datetime DEFAULT NULL,
     @Column(name = "birthdate")
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
 }

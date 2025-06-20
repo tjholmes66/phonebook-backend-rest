@@ -1,37 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/mvc 
-	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-4.3.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 	
     <context:annotation-config />
-    <context:component-scan base-package="com.opensource.products.phonebook.server.controller" />
-    
+    <context:component-scan base-package="com.opensource.products.phonebook.server" />
+
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
-		    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		      <property name="objectMapper">
-		         <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-		             
-			             <property name="dateFormat">
-			             	<bean class="java.text.SimpleDateFormat">
-			             		<constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
-			             	</bean>
-			             </property>
-		         </bean>
-		      </property>
+			<bean
+					class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper" ref="objectMapper" />
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-	   
-	<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-	    <property name="supportedMediaTypes" value="application/json"/>
+
+	<bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+
+		<property name="featuresToDisable">
+			<array>
+				<util:constant static-field="com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS" />
+			</array>
+		</property>
+
+		<property name="dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
+			</bean>
+		</property>
+
+		<property name="modulesToInstall" value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />
+	</bean>
+
+	<bean id="jsonHttpMessageConverter"
+		  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+		<property name="objectMapper" ref="objectMapper" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonHttpMessageConverter" />
+			</list>
+		</property>
 	</bean>
 	
 </beans>

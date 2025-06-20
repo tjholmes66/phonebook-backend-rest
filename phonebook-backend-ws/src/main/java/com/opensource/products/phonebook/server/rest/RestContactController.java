@@ -52,7 +52,7 @@ public class RestContactController
     @GetMapping(value = "/userId/{userId}", headers = "Accept=application/json")
     public @ResponseBody List<ContactDTO> getContactsByUserId(@PathVariable("userId") long userId)
     {
-        List<ContactDTO> contactDTOList = contactService.getContactsByUserId(userId);
+        List<ContactDTO> contactDTOList = contactService.getContactDtoListByUserId(userId);
         return contactDTOList;
     }
 

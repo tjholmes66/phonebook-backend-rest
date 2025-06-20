@@ -17,21 +17,21 @@ public class ContactController
         this.contactService = contactService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/json")
+    @GetMapping(value = "", headers = "Accept=application/json", produces = "applicatio/json")
     public ArrayList<ContactEntity> getContactList1()
     {
         ArrayList<ContactEntity> contactEntityList = (ArrayList) contactService.getAllContacts();
         return contactEntityList;
     }
     
-    @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Accept=application/json")
+    @GetMapping(value = "/", headers = "Accept=application/json")
     public ArrayList<ContactEntity> getContactList2()
     {
         ArrayList<ContactEntity> contactEntityList = (ArrayList) contactService.getAllContacts();
         return contactEntityList;
     }
 
-    @RequestMapping(value = "/contactId/{contactId}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @GetMapping(value = "/contactId/{contactId}", headers = "Accept=application/json")
     public ContactEntity getContactById(@PathVariable("contactId") long contactId)
     {
         ContactEntity contactEntity = contactService.getContactById(contactId);
@@ -39,15 +39,14 @@ public class ContactController
         return contactEntity;
     }
 
-    @RequestMapping(value = "/userId/{userId}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @GetMapping(value = "/userId/{userId}", headers = "Accept=application/json", produces = "application/json")
     public ArrayList<ContactEntity> getContactsByUserId(@PathVariable("userId") long userId)
     {
         ArrayList<ContactEntity> contactEntityList = (ArrayList) contactService.getContactsByUserId(userId);
         return contactEntityList;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json",
-        headers = "content-type=application/json")
+    @PostMapping(value = "/create", headers = "Accept=application/json", produces = "application/json")
     public ContactEntity createContact(@RequestBody ContactEntity contact)
     {
         System.out.println("ContactController: createContact: contact=" + contact);

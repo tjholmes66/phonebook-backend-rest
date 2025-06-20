@@ -24,4 +24,6 @@ public interface ContactDao
 
     List<ContactEntity> getContactEntity(ContactEntity exampleEntity);
 
+    List<ContactEntity> getContactEntityByUserId(long userId);
+
 }

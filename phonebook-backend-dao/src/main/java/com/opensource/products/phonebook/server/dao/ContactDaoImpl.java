@@ -86,4 +86,14 @@ public class ContactDaoImpl implements ContactDao
         return contactEntityList;
     }
 
+    @Override
+    public List<ContactEntity> getContactEntityByUserId(long userId)
+    {
+        Query query =
+                entityManager.createQuery("from ContactEntity ce where ce.user.userId = :userId");
+        query.setParameter("userId", userId);
+        List<ContactEntity> contactEntityList = query.getResultList();
+        return contactEntityList;
+    }
+
 }

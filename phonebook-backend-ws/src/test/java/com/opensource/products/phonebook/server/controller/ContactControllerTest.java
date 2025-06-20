@@ -1,26 +1,35 @@
 package com.opensource.products.phonebook.server.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.opensource.products.phonebook.server.domain.ContactEntity;
 import com.opensource.products.phonebook.server.domain.UserEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
+
 
 public class ContactControllerTest extends BaseControllerTests
 {
-    private final static Log logger = LogFactory.getLog(ContactControllerTest.class);
-
-    private final static int contactId = 0;
+    private final static Long contactId = 0L;
     // =============================================
     private final static String prefix = "Mr.";
     private final static String firstName = "contact_fn1";
@@ -35,12 +44,12 @@ public class ContactControllerTest extends BaseControllerTests
     private final static String zip = "02368-1234";
     // =============================================
     private final static int editedBy = 1;
-    private final static Date editedDate = new Date();
+    private final static LocalDateTime editedDate = LocalDateTime.now();
     private final static int enteredBy = 1;
-    private final static Date enteredDate = new Date();
+    private final static LocalDateTime enteredDate = LocalDateTime.now();
     // =============================================
     private final static int companyId = 0;
-    private final static Date birthDate = new Date();
+    private final static LocalDate birthDate = LocalDate.now();
 
     // =============================================
 

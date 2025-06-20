@@ -3,9 +3,7 @@ package com.opensource.products.phonebook.server.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -14,12 +12,10 @@ import com.opensource.products.phonebook.server.domain.UserEntity;
 
 public class UserControllerTest extends BaseControllerTests
 {
-    
-    private final static Log logger = LogFactory.getLog(UserControllerTest.class);
 
-    private final static int id = 0;
+    private final static Long id = 0L;
     private final static String email = "tom@tomholmes.new";
-    private final static int positionId = 2;
+    private final static Long positionId = 2L;
     private final static String firstname = "tom5_new";
     private final static String lastname = "holmes5_new";
     private final static String username = "user5new";
@@ -52,9 +48,9 @@ public class UserControllerTest extends BaseControllerTests
         return userEntity;
     }
 
-    private final static int updId = 9;
+    private final static Long updId = 9L;
     private final static String updEmail = "tom@tomholmes.new";
-    private final static int updPositionId = 3;
+    private final static Long updPositionId = 3L;
     private final static String updFirstname = "tom4_upd";
     private final static String updLastname = "holmes4_upd";
     private final static String updPassword = "pass4upd";

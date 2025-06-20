@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 // CREATE TABLE `users` (
@@ -100,6 +101,6 @@ public class UserEntity implements Serializable
     private String securityAnswer2;
 
     @Column(name = "birthdate")
-    private LocalDateTime birthdate;
+    private LocalDate birthdate;
 
 }

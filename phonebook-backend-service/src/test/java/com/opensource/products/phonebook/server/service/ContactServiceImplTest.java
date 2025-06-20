@@ -1,5 +1,6 @@
 package com.opensource.products.phonebook.server.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ContactServiceImplTest extends BaseServiceImplTests
     private final static long editedBy = 1;
     private final static LocalDateTime editedDate = LocalDateTime.now();
 
-    private final static LocalDateTime birthDate = LocalDateTime.now();
+    private final static LocalDate birthDate = LocalDate.now();
     private final static boolean admin = false;
 
     private ContactEntity createContactEntity()
